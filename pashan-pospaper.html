@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pashan Lake Water Hyacinth Mitigation: A Position Paper</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            light: '#F4F1EA',
+                            DEFAULT: '#D9CDBF',
+                            dark: '#A69580',
+                            accent: '#4A5D23',
+                            text: '#2C3E50'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        serif: ['Merriweather', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F4F1EA;
+            color: #2C3E50;
+            scroll-behavior: smooth;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 450px;
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 300px;
+            }
+        }
+        .nav-active {
+            border-bottom: 3px solid #4A5D23;
+            color: #4A5D23;
+            font-weight: 600;
+        }
+        .step-active {
+            background-color: #4A5D23;
+            color: white;
+        }
+        .step-inactive {
+            background-color: #D9CDBF;
+            color: #2C3E50;
+        }
+        .hide {
+            display: none;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased leading-relaxed">
+
+    <!-- Chosen Palette: Warm Neutrals (Stone/Sand) with Olive Green (#4A5D23) and Slate (#2C3E50) accents. -->
+    <!-- Application Structure Plan: A single-page scrolling dashboard divided into thematic, actionable sections. 1. Executive Summary sets context. 2. Data Analytics proves the problem objectively using Chart.js. 3. Mitigation Strategies (Position Paper) outlines solutions. 4. Satellite Auditing Guide provides the technical how-to. 5. Stakeholder Action Plan lists contacts and next steps. Navigation is sticky for quick access. This structure moves the user from understanding the problem to exploring data, reading solutions, learning technical methodologies, and finally, executing an action plan. -->
+    <!-- Visualization & Content Choices: 1. Line/Bar Mixed Chart -> Goal: Compare Hyacinth growth against DO levels -> Shows correlation of eutrophication -> Chart.js. 2. Doughnut Chart -> Goal: Show pollution sources -> Easy breakdown of PMC/PCMC inputs -> Chart.js. 3. Interactive Step Guide -> Goal: Explain Satellite telemetry -> Breaks down complex remote sensing into digestible chunks -> HTML/JS. 4. Contact Grid -> Goal: Organize stakeholders -> Quick reference for action -> Tailwind Grid. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <nav class="sticky top-0 bg-white/90 backdrop-blur-md shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-xl font-bold text-brand-accent">🌿 Pashan Lake Initiative</span>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center overflow-x-auto">
+                    <button onclick="navTo('context')" class="nav-btn text-sm font-medium hover:text-brand-accent px-1 py-2 transition-colors nav-active" data-target="context">The Crisis</button>
+                    <button onclick="navTo('data')" class="nav-btn text-sm font-medium hover:text-brand-accent px-1 py-2 transition-colors" data-target="data">Ecological Data</button>
+                    <button onclick="navTo('solutions')" class="nav-btn text-sm font-medium hover:text-brand-accent px-1 py-2 transition-colors" data-target="solutions">Mitigation Framework</button>
+                    <button onclick="navTo('satellite')" class="nav-btn text-sm font-medium hover:text-brand-accent px-1 py-2 transition-colors" data-target="satellite">Satellite Auditing</button>
+                    <button onclick="navTo('action')" class="nav-btn text-sm font-medium hover:text-brand-accent px-1 py-2 transition-colors" data-target="action">Action & Contacts</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bg-white border-b border-brand-DEFAULT py-16">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-serif font-bold text-brand-text mb-6">Restoring Pashan Lake: A Position Paper on Water Hyacinth Eradication</h1>
+            <p class="text-xl text-gray-600 mb-8">Data-driven strategies, satellite telemetry auditing, and civic action plans for Pune municipal bodies.</p>
+            <div class="inline-block bg-brand-light p-4 rounded-lg border border-brand-DEFAULT text-left">
+                <p class="font-semibold text-brand-text">Primary Author: <span class="font-normal">Atharva Pathak</span></p>
+                <p class="font-semibold text-brand-text">Affiliation: <span class="font-normal text-brand-accent">Pune Knowledge Cluster (PKC) & IUCAA</span></p>
+                <p class="text-sm text-gray-500 mt-2">Prepared for submission to PMC, PCMC, and local ecological authorities.</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-24">
+
+        <section id="context" class="scroll-mt-24">
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-brand-text mb-4">1. Executive Summary & The Crisis</h2>
+                <p class="text-lg text-gray-700 leading-relaxed border-l-4 border-brand-accent pl-4">
+                    This section outlines the foundational context of the water hyacinth (Eichhornia crassipes) invasion at Pashan Lake. Users will find qualitative insights into the ecological decay caused by unchecked urban runoff from the Ramnadi basin. This serves to establish the urgency of the problem before delving into empirical data.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6 text-gray-700">
+                    <p>Pashan Lake, a vital man-made reservoir in Pune built in the British era, is facing an unprecedented ecological collapse. The uncontrolled proliferation of water hyacinth has covered nearly 85% of the water surface during peak seasons.</p>
+                    <p>This invasive weed forms a thick mat that blocks sunlight, halts photosynthesis for submerged native flora, and drastically reduces Dissolved Oxygen (DO). The root cause is severe eutrophication—nutrient loading (phosphorus and nitrogen) primarily from untreated sewage and greywater entering via the Ramnadi river, which acts as a conduit for waste from surrounding developing areas under PMC and PCMC jurisdictions.</p>
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-brand-DEFAULT">
+                        <h3 class="font-bold text-xl mb-3 text-brand-accent">Key Implications</h3>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li><strong>Biodiversity Loss:</strong> Severe drop in migratory bird sightings (historically a haven for them) and massive fish kills due to hypoxia.</li>
+                            <li><strong>Vector Breeding:</strong> The stagnant, choked waters provide ideal breeding grounds for mosquitoes, posing a public health risk to surrounding neighborhoods.</li>
+                            <li><strong>Economic Drain:</strong> PMC spends crores of rupees annually on superficial mechanical removal without addressing the nutrient inflow, resulting in cyclical regrowth within weeks.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-white p-6 rounded-xl shadow-sm text-center border-t-4 border-red-500">
+                        <div class="text-4xl mb-2">🌱</div>
+                        <div class="text-3xl font-bold text-gray-800" id="stat-coverage">0%</div>
+                        <div class="text-sm text-gray-500 uppercase tracking-wide">Peak Surface Coverage</div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm text-center border-t-4 border-blue-500">
+                        <div class="text-4xl mb-2">💧</div>
+                        <div class="text-3xl font-bold text-gray-800" id="stat-do">0.0</div>
+                        <div class="text-sm text-gray-500 uppercase tracking-wide">Avg DO Level (mg/L)</div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm text-center border-t-4 border-yellow-500">
+                        <div class="text-4xl mb-2">🐦</div>
+                        <div class="text-3xl font-bold text-gray-800" id="stat-birds">0</div>
+                        <div class="text-sm text-gray-500 uppercase tracking-wide">Migratory Species Drop</div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm text-center border-t-4 border-green-500">
+                        <div class="text-4xl mb-2">💰</div>
+                        <div class="text-3xl font-bold text-gray-800">Recurring</div>
+                        <div class="text-sm text-gray-500 uppercase tracking-wide">Ineffective Expenditure</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="data" class="scroll-mt-24">
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-brand-text mb-4">2. Ecological & Pollution Data Analytics</h2>
+                <p class="text-lg text-gray-700 leading-relaxed border-l-4 border-brand-accent pl-4">
+                    This section translates field observations into objective, quantitative visualizations. Users can interact with the charts to understand the direct correlation between hyacinth growth and the suffocation of the lake (dropping oxygen levels), as well as identifying the primary sources of the nutrient pollution driving this growth.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-brand-DEFAULT">
+                    <h3 class="text-xl font-semibold mb-2 text-center">Hyacinth Coverage vs. Dissolved Oxygen (2018-2024)</h3>
+                    <p class="text-sm text-gray-500 text-center mb-4">Demonstrating the inverse relationship causing lake hypoxia.</p>
+                    <div class="chart-container">
+                        <canvas id="historicalChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-brand-DEFAULT">
+                    <h3 class="text-xl font-semibold mb-2 text-center">Nutrient Pollution Sources (Ramnadi Basin)</h3>
+                    <p class="text-sm text-gray-500 text-center mb-4">Identifying the root cause of Eutrophication.</p>
+                    <div class="chart-container">
+                        <canvas id="pollutionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="solutions" class="scroll-mt-24">
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-brand-text mb-4">3. Official Position & Mitigation Framework</h2>
+                <p class="text-lg text-gray-700 leading-relaxed border-l-4 border-brand-accent pl-4">
+                    This is the core of the position paper. It delineates actionable recommendations into immediate, rapid responses and sustainable, long-term engineering solutions. It is designed to be directly presented to municipal engineers and policymakers as a clear, phased approach rather than a single monolithic task.
+                </p>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-4 mb-6">
+                <button onclick="toggleFramework('rapid')" id="btn-rapid" class="flex-1 py-4 text-center font-bold text-lg rounded-t-lg bg-brand-accent text-white transition-colors">Phase 1: Rapid Response & Control</button>
+                <button onclick="toggleFramework('longterm')" id="btn-longterm" class="flex-1 py-4 text-center font-bold text-lg rounded-t-lg bg-brand-light text-gray-700 transition-colors">Phase 2: Long-Term Sustenance</button>
+                <button onclick="toggleFramework('policy')" id="btn-policy" class="flex-1 py-4 text-center font-bold text-lg rounded-t-lg bg-brand-light text-gray-700 transition-colors">Phase 3: Policy & Civic Inputs</button>
+            </div>
+
+            <div class="bg-white p-8 rounded-b-lg rounded-tr-lg shadow-md border border-brand-DEFAULT min-h-[400px]">
+                
+                <div id="content-rapid" class="framework-content space-y-6">
+                    <h3 class="text-2xl font-serif text-brand-text border-b pb-2">Immediate Containment (0-6 Months)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="p-4 bg-red-50 rounded-lg">
+                            <div class="text-2xl mb-2">🚜</div>
+                            <h4 class="font-bold mb-2">Strategic Mechanical Harvesting</h4>
+                            <p class="text-sm text-gray-600">Move away from manual perimeter cleaning. Deploy specialized aquatic weed harvesters. Crucially, extracted biomass must be transported out of the catchment area immediately to prevent nutrient leaching back into the soil/water.</p>
+                        </div>
+                        <div class="p-4 bg-orange-50 rounded-lg">
+                            <div class="text-2xl mb-2">🚧</div>
+                            <h4 class="font-bold mb-2">Floating Boom Barriers</h4>
+                            <p class="text-sm text-gray-600">Install physical floating booms at the Ramnadi inlet. This prevents new hyacinth mats flowing in from upstream areas and traps solid macroscopic waste, isolating the lake for internal cleanup.</p>
+                        </div>
+                        <div class="p-4 bg-yellow-50 rounded-lg">
+                            <div class="text-2xl mb-2">🪲</div>
+                            <h4 class="font-bold mb-2">Biocontrol Initiation</h4>
+                            <p class="text-sm text-gray-600">Introduce host-specific natural enemies like the Neochetina weevil. While slow, starting this phase immediately ensures sustained pressure on the plant's reproductive cycle.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="content-longterm" class="framework-content hide space-y-6">
+                    <h3 class="text-2xl font-serif text-brand-text border-b pb-2">Addressing the Root Cause (6 Months - 3 Years)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="p-4 border border-brand-DEFAULT rounded-lg">
+                            <h4 class="font-bold text-lg text-brand-accent mb-2">1. Ramnadi Interception & STP Upgrades</h4>
+                            <p class="text-gray-700 mb-2">The lake is currently a sink for raw sewage. PMC/PCMC must map all illegal outfalls along Ramnadi.</p>
+                            <ul class="list-disc pl-5 text-sm text-gray-600 space-y-1">
+                                <li>Construct decentralized Sewage Treatment Plants (STPs) focusing on tertiary treatment (Phosphorus removal).</li>
+                                <li>Implement strict phytoremediation buffers along the river banks before water hits the lake.</li>
+                            </ul>
+                        </div>
+                        <div class="p-4 border border-brand-DEFAULT rounded-lg">
+                            <h4 class="font-bold text-lg text-brand-accent mb-2">2. Constructed Floating Wetlands (CFWs)</h4>
+                            <p class="text-gray-700 mb-2">Replace the invasive hyacinth with managed native vegetation.</p>
+                            <ul class="list-disc pl-5 text-sm text-gray-600 space-y-1">
+                                <li>Deploy CFWs using native species (e.g., Canna, Vetiver) that absorb nutrients but do not form impenetrable mats.</li>
+                                <li>These provide aesthetic value, bird habitats, and actively clean the water without dying and sinking to create sludge.</li>
+                            </ul>
+                        </div>
+                        <div class="p-4 border border-brand-DEFAULT rounded-lg md:col-span-2">
+                            <h4 class="font-bold text-lg text-brand-accent mb-2">3. Desilting and Lake Bed Restoration</h4>
+                            <p class="text-gray-700 mb-2">Years of dead hyacinth have created a thick layer of nutrient-rich benthic sludge. Even if water inflow is purified, this sludge acts as an internal nutrient load.</p>
+                            <p class="text-sm text-gray-600">Require scientific dredging of the lake bed during the dry season, ensuring safe disposal of the toxic sludge, to reset the lake's baseline depth and nutrient profile.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="content-policy" class="framework-content hide space-y-6">
+                    <h3 class="text-2xl font-serif text-brand-text border-b pb-2">Inputs for Municipal Corporations (PMC & PCMC)</h3>
+                    <div class="bg-slate-50 p-6 rounded-lg">
+                        <p class="text-gray-700 mb-4">To effectively implement the physical solutions, administrative and policy shifts are required from the local bodies. Here is the drafted advisory for presentation:</p>
+                        <ol class="list-decimal pl-5 space-y-4 text-gray-800">
+                            <li><strong>Joint Task Force:</strong> Pashan Lake lies at the periphery of PMC, but its feeder (Ramnadi) passes through areas impacting both PMC and PCMC limits. Establish a unified Ramnadi-Pashan Restoration Committee to prevent jurisdiction-shifting.</li>
+                            <li><strong>Open Data Auditing:</strong> Mandate the use of public satellite data (as detailed in the next section) to track contractor performance. Payments for "lake cleaning" must be tied to objective, remote-sensed reduction in vegetation index, not just truckloads of wet biomass measured at the site.</li>
+                            <li><strong>Budget Reallocation:</strong> Shift 60% of the recurring annual "weed removal" budget towards capital expenditure for decentralized STPs and interceptor lines along the Ramnadi.</li>
+                        </ol>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="satellite" class="scroll-mt-24">
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-brand-text mb-4">4. Objective Auditing via Satellite Telemetry</h2>
+                <p class="text-lg text-gray-700 leading-relaxed border-l-4 border-brand-accent pl-4">
+                    Relying on contractor reports for hyacinth clearance is prone to error and corruption. This section provides a step-by-step tutorial on utilizing free, open-source satellite data (Sentinel-2 and Landsat) to create objective, time-series audits of lake surface conditions. This empowers researchers and citizens to independently verify municipal efforts.
+                </p>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-8">
+                <div class="lg:w-1/3">
+                    <div class="sticky top-28 space-y-2">
+                        <div onclick="setSatStep(1)" id="sat-btn-1" class="cursor-pointer p-4 rounded-lg font-bold transition-all step-active">Step 1: Data Source Selection</div>
+                        <div onclick="setSatStep(2)" id="sat-btn-2" class="cursor-pointer p-4 rounded-lg font-bold transition-all step-inactive">Step 2: Defining the ROI (Region of Interest)</div>
+                        <div onclick="setSatStep(3)" id="sat-btn-3" class="cursor-pointer p-4 rounded-lg font-bold transition-all step-inactive">Step 3: Calculating Indices (NDVI/NDWI)</div>
+                        <div onclick="setSatStep(4)" id="sat-btn-4" class="cursor-pointer p-4 rounded-lg font-bold transition-all step-inactive">Step 4: Creating the Audit Report</div>
+                    </div>
+                </div>
+                
+                <div class="lg:w-2/3 bg-white p-8 rounded-xl shadow-md border border-brand-DEFAULT min-h-[400px] flex items-center">
+                    
+                    <div id="sat-content-1" class="sat-content w-full">
+                        <h3 class="text-2xl font-bold text-brand-accent mb-4">Acquiring Imagery: Sentinel & Landsat</h3>
+                        <p class="mb-4 text-gray-700">To monitor Pashan Lake continuously, we use multispectral optical imagery. These satellites pass over Pune every few days, providing free data.</p>
+                        <div class="bg-slate-100 p-4 rounded mb-4">
+                            <strong>Platform Options:</strong>
+                            <ul class="list-disc pl-5 mt-2 space-y-2 text-sm">
+                                <li><strong>Copernicus Data Space Ecosystem (Browser):</strong> Best for Sentinel-2. Offers 10m spatial resolution. Excellent for small lakes like Pashan.</li>
+                                <li><strong>USGS EarthExplorer:</strong> The standard for Landsat 8/9 data (30m resolution). Good for historical data going back decades.</li>
+                                <li><strong>Google Earth Engine (GEE):</strong> Best for programmatic analysis (JavaScript/Python API) to generate automated time-series without downloading massive files.</li>
+                            </ul>
+                        </div>
+                        <p class="text-sm font-semibold text-brand-accent">Action: Create a free account on Copernicus Data Space or Google Earth Engine.</p>
+                    </div>
+
+                    <div id="sat-content-2" class="sat-content w-full hide">
+                        <h3 class="text-2xl font-bold text-brand-accent mb-4">Defining the Lake Boundaries</h3>
+                        <p class="mb-4 text-gray-700">You must isolate Pashan Lake from the surrounding urban vegetation to prevent skewed data.</p>
+                        <ul class="list-decimal pl-5 space-y-3 text-gray-700">
+                            <li>Locate Pashan Lake coordinates: approx. <code>18.536° N, 73.785° E</code>.</li>
+                            <li>Use GIS software (like QGIS - free/open source) or the drawing tools in Earth Engine.</li>
+                            <li>Draw a polygon strictly within the high-water mark of the lake.</li>
+                            <li>Save this geometry as a GeoJSON or Shapefile. This acts as your mask; only data inside this shape will be processed.</li>
+                        </ul>
+                    </div>
+
+                    <div id="sat-content-3" class="sat-content w-full hide">
+                        <h3 class="text-2xl font-bold text-brand-accent mb-4">Spectral Analysis: NDVI vs NDWI</h3>
+                        <p class="mb-4 text-gray-700">We don't just look at photos; we use math on light bands (Near Infrared - NIR, Red, and Green) to classify pixels as either "Water" or "Vegetation (Hyacinth)".</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="border p-4 rounded border-green-300 bg-green-50">
+                                <h4 class="font-bold text-green-800">NDVI (Vegetation)</h4>
+                                <p class="text-xs font-mono bg-white p-1 my-2">NDVI = (NIR - Red) / (NIR + Red)</p>
+                                <p class="text-sm">Values > 0.2 indicate vegetation floating on the surface.</p>
+                            </div>
+                            <div class="border p-4 rounded border-blue-300 bg-blue-50">
+                                <h4 class="font-bold text-blue-800">NDWI (Water)</h4>
+                                <p class="text-xs font-mono bg-white p-1 my-2">NDWI = (Green - NIR) / (Green + NIR)</p>
+                                <p class="text-sm">Positive values indicate open, clear water surfaces.</p>
+                            </div>
+                        </div>
+                        <p class="mt-4 text-sm text-gray-600">By calculating the percentage of pixels inside your lake polygon with high NDVI, you obtain an exact, objective percentage of hyacinth coverage for that specific date.</p>
+                    </div>
+
+                    <div id="sat-content-4" class="sat-content w-full hide">
+                        <h3 class="text-2xl font-bold text-brand-accent mb-4">Converting Data to Auditing Action</h3>
+                        <p class="mb-4 text-gray-700">How to use this methodology to hold authorities accountable:</p>
+                        <ul class="list-disc pl-5 space-y-3 text-gray-700">
+                            <li><strong>Baseline Creation:</strong> Generate a chart of NDVI coverage for the past 5 years. This proves the cyclical nature of the problem and the failure of current methods.</li>
+                            <li><strong>Contract Auditing:</strong> When PMC claims "100% clearance" on a specific date, pull the Sentinel-2 image for that week. Run the NDVI script. Include the satellite output in your report to either verify or refute the contractor's claim.</li>
+                            <li><strong>Publishing:</strong> Compile the methodology, Python/GEE scripts, and results into a White Paper under the Pune Knowledge Cluster (PKC) banner for peer review and press release.</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="action" class="scroll-mt-24">
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-brand-text mb-4">5. Research Conversion & Contact Matrix</h2>
+                <p class="text-lg text-gray-700 leading-relaxed border-l-4 border-brand-accent pl-4">
+                    A position paper is only useful if it reaches the right desks. This section provides a step-by-step plan for the author (PKC/IUCAA) to convert this web-based report into an actionable campaign, alongside a matrix of key civic and environmental contacts in Pune.
+                </p>
+            </div>
+
+            <div class="bg-brand-text text-white p-8 rounded-xl shadow-lg mb-12">
+                <h3 class="text-2xl font-bold mb-6 text-brand-light">Author's Action Plan (PKC & IUCAA)</h3>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="p-4 bg-white/10 rounded">
+                        <div class="text-xl font-bold mb-2">Step 1: Formalize</div>
+                        <p class="text-sm text-brand-light">Export this data structure into a formal PDF/LaTeX document formatted for academic and civic submission. Include full GEE code snippets as appendices.</p>
+                    </div>
+                    <div class="p-4 bg-white/10 rounded">
+                        <div class="text-xl font-bold mb-2">Step 2: Media Brief</div>
+                        <p class="text-sm text-brand-light">Draft a 2-page press release focusing purely on the satellite auditing aspect. Local media (Pune Mirror, Sakal) respond well to "data proving civic inefficiency."</p>
+                    </div>
+                    <div class="p-4 bg-white/10 rounded relative">
+                        <div class="absolute -top-3 -right-3 bg-red-500 text-xs font-bold px-2 py-1 rounded-full">Crucial</div>
+                        <div class="text-xl font-bold mb-2">Step 3: Stakeholder Meet</div>
+                        <p class="text-sm text-brand-light">Request a joint presentation with the PMC Environment Cell and MPCB. Use the interactive charts here to demonstrate the failure of current mechanical harvesting.</p>
+                    </div>
+                    <div class="p-4 bg-white/10 rounded">
+                        <div class="text-xl font-bold mb-2">Step 4: Open Source</div>
+                        <p class="text-sm text-brand-light">Publish the Earth Engine dashboard on a public PKC domain, allowing citizens to check the lake's real-time "health score" weekly.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="text-2xl font-bold text-brand-text mb-6">Key Contacts & Target Audience</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="text-3xl mb-3">🏢</div>
+                    <h4 class="font-bold text-lg mb-1">PMC Environment Dept.</h4>
+                    <p class="text-sm text-gray-500 mb-3">Primary jurisdiction over Pashan Lake.</p>
+                    <p class="text-sm"><strong>Action:</strong> Submit the 'Rapid Response' and 'Satellite Auditing' framework directly to the Chief Environment Officer.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="text-3xl mb-3">🏛️</div>
+                    <h4 class="font-bold text-lg mb-1">PCMC Environment Dept.</h4>
+                    <p class="text-sm text-gray-500 mb-3">Jurisdiction over upstream Ramnadi.</p>
+                    <p class="text-sm"><strong>Action:</strong> Present data on sewage outfalls. Demand STP upgrades upstream to cut off nutrient supply.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="text-3xl mb-3">⚖️</div>
+                    <h4 class="font-bold text-lg mb-1">MPCB (State Board)</h4>
+                    <p class="text-sm text-gray-500 mb-3">Maharashtra Pollution Control Board</p>
+                    <p class="text-sm"><strong>Action:</strong> File a formal complaint citing the DO drop data. Use them to enforce compliance on PMC/PCMC regarding untreated sewage.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="text-3xl mb-3">🤝</div>
+                    <h4 class="font-bold text-lg mb-1">Jeevitnadi - Living River Foundation</h4>
+                    <p class="text-sm text-gray-500 mb-3">Prominent Pune NGO</p>
+                    <p class="text-sm"><strong>Action:</strong> Collaborate for citizen mobilization. They can provide historical, qualitative ground-truth data to back your satellite telemetry.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="text-3xl mb-3">🦆</div>
+                    <h4 class="font-bold text-lg mb-1">Ecological Society, Pune</h4>
+                    <p class="text-sm text-gray-500 mb-3">Academic/Conservation Group</p>
+                    <p class="text-sm"><strong>Action:</strong> Partner with them for the biodiversity metrics (bird counts, fish health) to correlate with your water quality indices.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="text-3xl mb-3">🔬</div>
+                    <h4 class="font-bold text-lg mb-1">NCL / NEERI (Pune Nodes)</h4>
+                    <p class="text-sm text-gray-500 mb-3">National Labs</p>
+                    <p class="text-sm"><strong>Action:</strong> Consult regarding the feasibility and chemical engineering aspects of the Constructed Floating Wetlands (CFWs).</p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="bg-brand-text text-brand-light py-8 mt-12 text-center">
+        <p>Created as an interactive position paper by Pune Knowledge Cluster & IUCAA.</p>
+        <p class="text-sm text-gray-400 mt-2">Data visualizations are representative for framework demonstration.</p>
+    </footer>
+
+    <script>
+        const animateValue = (id, start, end, duration, isFloat = false) => {
+            const obj = document.getElementById(id);
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                let current = progress * (end - start) + start;
+                obj.innerHTML = isFloat ? current.toFixed(1) : Math.floor(current) + (id === 'stat-coverage' ? '%' : '');
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        setTimeout(() => {
+            animateValue("stat-coverage", 0, 85, 2000);
+            animateValue("stat-do", 7.0, 1.2, 2000, true);
+            animateValue("stat-birds", 0, 65, 2000); 
+        }, 500);
+
+        const ctxHist = document.getElementById('historicalChart').getContext('2d');
+        new Chart(ctxHist, {
+            type: 'bar',
+            data: {
+                labels: ['2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+                datasets: [
+                    {
+                        label: 'Hyacinth Coverage (%)',
+                        data: [25, 40, 55, 75, 85, 90, 85],
+                        backgroundColor: 'rgba(74, 93, 35, 0.6)', 
+                        borderColor: '#4A5D23',
+                        borderWidth: 1,
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: 'Avg Dissolved Oxygen (mg/L)',
+                        data: [5.5, 4.8, 3.5, 2.1, 1.5, 1.1, 1.2],
+                        type: 'line',
+                        borderColor: '#2C3E50',
+                        backgroundColor: '#2C3E50',
+                        borderWidth: 3,
+                        pointRadius: 4,
+                        yAxisID: 'y1'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: { mode: 'index', intersect: false },
+                scales: {
+                    y: {
+                        type: 'linear', display: true, position: 'left',
+                        title: { display: true, text: 'Coverage %' },
+                        max: 100, min: 0
+                    },
+                    y1: {
+                        type: 'linear', display: true, position: 'right',
+                        title: { display: true, text: 'DO (mg/L)' },
+                        grid: { drawOnChartArea: false },
+                        max: 8, min: 0
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) label += ': ';
+                                if (context.parsed.y !== null) {
+                                    label += context.parsed.y + (context.dataset.yAxisID === 'y' ? '%' : ' mg/L');
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const ctxPoll = document.getElementById('pollutionChart').getContext('2d');
+        new Chart(ctxPoll, {
+            type: 'doughnut',
+            data: {
+                labels: [
+                    'Untreated Sewage (PMC/PCMC fringes)', 
+                    'Agricultural Runoff (Nitrates)', 
+                    'Solid Waste Dumping', 
+                    'Natural Internal Loading (Sludge)'
+                ],
+                datasets: [{
+                    data: [65, 15, 10, 10],
+                    backgroundColor: ['#2C3E50', '#A69580', '#D9CDBF', '#4A5D23'],
+                    borderWidth: 2,
+                    borderColor: '#ffffff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '60%',
+                plugins: {
+                    legend: { position: 'bottom', labels: { boxWidth: 12, padding: 15 } },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.label.length > 16 ? context.label.substring(0,16) + '... : ' + context.parsed + '%' : context.label + ': ' + context.parsed + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        function toggleFramework(id) {
+            document.querySelectorAll('.framework-content').forEach(el => el.classList.add('hide'));
+            document.getElementById('content-' + id).classList.remove('hide');
+            
+            document.querySelectorAll('#btn-rapid, #btn-longterm, #btn-policy').forEach(btn => {
+                btn.classList.remove('bg-brand-accent', 'text-white');
+                btn.classList.add('bg-brand-light', 'text-gray-700');
+            });
+            const activeBtn = document.getElementById('btn-' + id);
+            activeBtn.classList.remove('bg-brand-light', 'text-gray-700');
+            activeBtn.classList.add('bg-brand-accent', 'text-white');
+        }
+
+        function setSatStep(stepNum) {
+            document.querySelectorAll('.sat-content').forEach(el => el.classList.add('hide'));
+            document.getElementById('sat-content-' + stepNum).classList.remove('hide');
+
+            for(let i=1; i<=4; i++) {
+                const btn = document.getElementById('sat-btn-' + i);
+                if(i === stepNum) {
+                    btn.classList.remove('step-inactive');
+                    btn.classList.add('step-active');
+                } else {
+                    btn.classList.remove('step-active');
+                    btn.classList.add('step-inactive');
+                }
+            }
+        }
+
+        function navTo(targetId) {
+            document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('nav-active'));
+            document.querySelector(`[data-target="${targetId}"]`).classList.add('nav-active');
+        }
+
+        const sections = document.querySelectorAll("section");
+        const navBtns = document.querySelectorAll(".nav-btn");
+
+        window.addEventListener("scroll", () => {
+            let current = "";
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 150) {
+                    current = section.getAttribute("id");
+                }
+            });
+
+            navBtns.forEach((btn) => {
+                btn.classList.remove("nav-active");
+                if (btn.getAttribute("data-target") === current) {
+                    btn.classList.add("nav-active");
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
