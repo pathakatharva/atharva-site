@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="mr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PKC × YASHADA — AI in Public Governance Showcase</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Noto Sans Devanagari', 'sans-serif'],
+                        marathi: ['Noto Sans Devanagari', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                            950: '#082f49',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.85);
+        }
+        .executive-gradient {
+            background: linear-gradient(135deg, #09192e 0%, #0d2847 45%, #075985 100%);
+        }
+        .tab-btn.active {
+            border-bottom: 2px solid #0284c7;
+            color: #0284c7;
+            font-weight: 700;
+            background: rgba(2, 132, 199, 0.04);
+        }
+        .wave-bar {
+            width: 3.5px;
+            background: #10b981;
+            border-radius: 2px;
+            height: 22px;
+            transition: transform 0.1s ease;
+        }
+        .wave-static {
+            height: 5px !important;
+            background: #94a3b8 !important;
+            transform: scaleY(1) !important;
+        }
+    </style>
+</head>
+<body class="bg-slate-50/70 text-slate-800 font-sans min-h-screen flex flex-col antialiased selection:bg-sky-100 selection:text-sky-900">
+
+    <!-- Top Executive Header -->
+    <header class="executive-gradient text-white shadow-lg sticky top-0 z-50 border-b border-slate-700/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+                
+                <!-- Logo & Institutional Identity -->
+                <div class="flex items-center space-x-3.5">
+                    <div class="h-12 w-12 bg-white rounded-xl p-1 shadow flex items-center justify-center shrink-0 border border-white/20 overflow-hidden">
+                        <img src="pkclogo.png" alt="PKC Logo" class="h-full w-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div style="display:none;" class="h-full w-full items-center justify-center font-extrabold text-brand-900 text-xs tracking-tighter">
+                            PKC
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-[10px] font-bold uppercase tracking-widest bg-sky-400/20 text-sky-200 px-2 py-0.5 rounded border border-sky-300/30">Strategic Collaboration</span>
+                            <span class="text-xs text-slate-300 font-medium hidden sm:inline">• Pune Knowledge Cluster & YASHADA</span>
+                        </div>
+                        <h1 class="text-lg sm:text-xl font-bold tracking-tight text-white mt-0.5">
+                            AI in Public Governance & Capacity Building
+                        </h1>
+                    </div>
+                </div>
+
+                <!-- Delegation Profile Badge -->
+                <div class="flex items-center justify-between md:justify-end gap-3 border-t md:border-t-0 pt-2 md:pt-0 border-slate-700/50">
+                    <div class="text-left md:text-right">
+                        <span class="text-[10px] text-slate-300 block uppercase font-medium tracking-wider">Delegation Session</span>
+                        <span class="text-xs font-semibold text-sky-100">Kalyani Gokhale & YASHADA Team</span>
+                    </div>
+                    <span class="flex h-2.5 w-2.5 relative">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Sleek Tab Navigation Bar -->
+            <nav class="mt-3 flex space-x-1 border-t border-slate-700/60 pt-2 overflow-x-auto text-xs sm:text-sm font-medium">
+                <button onclick="switchTab('demo-audio')" id="tab-demo-audio" class="tab-btn active px-3.5 py-2 text-slate-300 hover:text-white rounded-t-lg transition-all flex items-center gap-2 whitespace-nowrap">
+                    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z"></path></svg>
+                    <span>Demo 1: <strong>मराठी डायलेक्ट व्हॉईस AI</strong></span>
+                </button>
+                <button onclick="switchTab('demo-rag')" id="tab-demo-rag" class="tab-btn px-3.5 py-2 text-slate-300 hover:text-white rounded-t-lg transition-all flex items-center gap-2 whitespace-nowrap">
+                    <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    <span>Demo 2: <strong>Maha-GR Policy Engine</strong></span>
+                </button>
+                <button onclick="switchTab('demo-grievance')" id="tab-demo-grievance" class="tab-btn px-3.5 py-2 text-slate-300 hover:text-white rounded-t-lg transition-all flex items-center gap-2 whitespace-nowrap">
+                    <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                    <span>Demo 3: <strong>Grievance Triage</strong></span>
+                </button>
+                <button onclick="switchTab('overview')" id="tab-overview" class="tab-btn px-3.5 py-2 text-slate-300 hover:text-white rounded-t-lg transition-all flex items-center gap-2 whitespace-nowrap">
+                    <svg class="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    <span>Strategic Roadmap</span>
+                </button>
+                <button onclick="switchTab('demo-curriculum')" id="tab-demo-curriculum" class="tab-btn px-3.5 py-2 text-slate-300 hover:text-white rounded-t-lg transition-all flex items-center gap-2 whitespace-nowrap">
+                    <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                    <span>Executive Masterclasses</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Stage -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- ================= TAB 1: MARATHI DIALECT VOICE AI ================= -->
+        <section id="content-demo-audio" class="space-y-5">
+            <div class="glass-card p-6 sm:p-7 rounded-2xl shadow-sm border border-slate-200">
+                
+                <!-- Header -->
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="px-2.5 py-0.5 bg-emerald-50 text-emerald-700 rounded-full text-xs font-bold border border-emerald-200 flex items-center gap-1.5">
+                                <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span> Native Maharashtra Dialect Model (mr-IN)
+                            </span>
+                            <span class="text-xs text-slate-500 font-medium">Bhashini & Indic-TTS Prosody</span>
+                        </div>
+                        <h2 class="text-lg sm:text-xl font-bold text-slate-900 mt-1">मराठी व्हॉईस असिस्टंट — अस्सल प्रादेशिक उच्चार व नागरी संवाद</h2>
+                        <p class="text-xs sm:text-sm text-slate-600">Simulating natural Maharashtrian cadence, aspirated accents, and colloquial vocabulary for citizen helpline interactions.</p>
+                    </div>
+
+                    <!-- Marathi Dialect Controls -->
+                    <div class="flex flex-wrap items-center gap-2 bg-slate-100/80 p-2 rounded-xl border border-slate-200 text-xs">
+                        <div class="flex items-center gap-1.5 px-1">
+                            <span class="font-bold text-slate-700">बोली व स्वर:</span>
+                            <select id="dialect-mode" onchange="onDialectChange()" class="font-semibold bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 text-slate-800 focus:ring-2 focus:ring-emerald-500 outline-none">
+                                <option value="marathi_pune">पश्चिम महाराष्ट्र / पुणेरी मराठी (Conversational Female)</option>
+                                <option value="marathi_formal">अधिकृत प्रशासकीय मराठी (Formal Cadence)</option>
+                                <option value="marathi_rural">ग्रामीण बोली संथ संवाद (Rural Outreach / IVR)</option>
+                            </select>
+                        </div>
+                        <select id="system-voice-list" onchange="onVoiceListChange()" class="border border-slate-300 rounded-lg px-2 py-1.5 bg-white text-slate-700 text-xs max-w-[140px]">
+                            <option value="">Auto-Detect Voice</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Scenario Pills -->
+                <div class="mt-5">
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2.5">Select Voice Interaction Scenario (तक्रार विषय निवडा):</label>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <button onclick="selectAudioScenario('ration')" id="btn-audio-ration" class="p-3.5 text-left rounded-xl border border-emerald-600 bg-emerald-50/70 text-slate-900 font-medium text-xs transition-all flex flex-col justify-between shadow-sm">
+                            <span class="font-bold text-slate-900 text-sm">१. रेशन कार्ड व धान्य वाटप (PDS Scheme)</span>
+                            <span class="text-[11px] text-emerald-800 mt-1 font-marathi">"नवीन बाळाचं नाव जोडायचं आहे, धान्य मिळत नाही..."</span>
+                        </button>
+                        <button onclick="selectAudioScenario('pmkisan')" id="btn-audio-pmkisan" class="p-3.5 text-left rounded-xl border border-slate-200 bg-white text-slate-700 font-medium text-xs transition-all hover:bg-slate-50 flex flex-col justify-between">
+                            <span class="font-bold text-slate-900 text-sm">२. नमो शेतकरी सन्मान निधी (DBT Status)</span>
+                            <span class="text-[11px] text-slate-500 mt-1 font-marathi">"हप्त्याचे २ हजार रुपये खात्यात जमा झाले नाहीत..."</span>
+                        </button>
+                        <button onclick="selectAudioScenario('caste')" id="btn-audio-caste" class="p-3.5 text-left rounded-xl border border-slate-200 bg-white text-slate-700 font-medium text-xs transition-all hover:bg-slate-50 flex flex-col justify-between">
+                            <span class="font-bold text-slate-900 text-sm">३. जात वैधता प्रमाणपत्र (Caste Validity)</span>
+                            <span class="text-[11px] text-slate-500 mt-1 font-marathi">"कॉलेज ऍडमिशनसाठी तातडीने दाखला कसा मिळेल?"</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Integrated Player Stage -->
+                <div class="mt-5 bg-slate-900 text-white rounded-2xl p-5 sm:p-6 shadow-xl border border-slate-800">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4 mb-4">
+                        <div class="flex items-center gap-3">
+                            <button onclick="handlePlayButtonClick()" id="btn-play-trigger" class="w-12 h-12 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-full flex items-center justify-center shadow-lg transition-transform active:scale-95 cursor-pointer">
+                                <svg id="icon-play" class="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                                <svg id="icon-pause" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                            </button>
+                            <div>
+                                <div class="text-sm font-bold text-white flex items-center gap-2">
+                                    <span id="audio-title">नागरी पुरवठा संवाद: रेशन कार्ड व धान्य वाटप</span>
+                                    <span id="audio-status-badge" class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-700/50">Click Play (मराठी आवाज ऐका)</span>
+                                </div>
+                                <div class="text-xs text-slate-400 font-mono mt-0.5" id="engine-status-label">Dialect: पश्चिम महाराष्ट्र मराठी बोली • नैसर्गिक उच्चार</div>
+                            </div>
+                        </div>
+
+                        <!-- Waveform Visualizer -->
+                        <div class="flex items-center gap-1.5 px-3 py-1.5 bg-slate-950 rounded-xl border border-slate-800 self-start sm:self-auto">
+                            <div class="wave-bar wave-static" id="wb-1"></div>
+                            <div class="wave-bar wave-static" id="wb-2"></div>
+                            <div class="wave-bar wave-static" id="wb-3"></div>
+                            <div class="wave-bar wave-static" id="wb-4"></div>
+                            <div class="wave-bar wave-static" id="wb-5"></div>
+                            <div class="wave-bar wave-static" id="wb-6"></div>
+                            <div class="wave-bar wave-static" id="wb-7"></div>
+                            <div class="wave-bar wave-static" id="wb-8"></div>
+                            <span class="text-xs font-mono text-emerald-400 ml-2" id="playback-timer">00:00 / 00:11</span>
+                        </div>
+                    </div>
+
+                    <!-- Dual Cards: Citizen Voice vs AI Response -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 text-xs">
+                        <div class="p-4 bg-slate-950/70 rounded-xl border border-slate-800 space-y-2">
+                            <div class="flex items-center justify-between text-slate-400">
+                                <span class="font-bold text-sky-400 flex items-center gap-1.5">
+                                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 006 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z" clip-rule="evenodd"></path></svg>
+                                    १. नागरिक ऑडिओ इनपुट (Spoken Marathi Dialect):
+                                </span>
+                                <span class="text-[10px] bg-slate-800 px-1.5 py-0.5 rounded text-slate-300">स्थानिक मराठी बोली</span>
+                            </div>
+                            <p class="text-slate-200 font-marathi text-sm italic bg-slate-900/60 p-3 rounded-lg border border-slate-800 leading-relaxed" id="audio-transcript-citizen">
+                                "साहेब, आमच्या कुटुंबातील नवीन लहान बाळाचं नाव रेशन कार्डवर चढवायचं आहे, आणि गेल्या महिन्याचं धान्य बायोमेट्रिक ठसा न उमटल्यामुळे मिळालं नाही. तहसील कार्यालयात न जाता हे कसं करता येईल?"
+                            </p>
+                            <div class="text-[11px] text-slate-400 flex gap-3 font-mono">
+                                <span>• Speech ASR: Bhashini Indic-Whisper</span>
+                                <span>• अचूकता: ९६.४%</span>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-emerald-950/20 rounded-xl border border-emerald-900/40 space-y-2">
+                            <div class="flex items-center justify-between text-slate-400">
+                                <span class="font-bold text-emerald-400 flex items-center gap-1.5">
+                                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                                    २. AI अधिकृत मराठी ऑडिओ उत्तर (Synthesized Voice):
+                                </span>
+                                <span class="text-[10px] bg-emerald-900/50 text-emerald-300 px-1.5 py-0.5 rounded border border-emerald-700/50">शासन निर्णय प्रमाणित</span>
+                            </div>
+                            <p class="text-emerald-100 font-marathi text-sm bg-emerald-950/40 p-3 rounded-lg border border-emerald-800/40 leading-relaxed" id="audio-response-ai">
+                                "नमस्कार. १) बालकाचे नाव जोडण्यासाठी ग्रामपंचायत किंवा सेतू केंद्रावर जन्म प्रमाणपत्र व आधार कार्ड सादर करा. २) बायोमेट्रिक ठसा न आल्यास, शासन निर्णयानुसार रेशन दुकानदारास OTP किंवा 'नॉमिनी' द्वारे धान्य देणे बंधनकारक आहे. तक्रारीसाठी टोल-फ्री क्र. १९६७ वर कॉल करा."
+                            </p>
+                            <div class="text-[11px] text-emerald-400/80 flex gap-3 font-mono">
+                                <span>• Synthesis: Maharashtra Dialect Neural TTS</span>
+                                <span>• लेटन्सी: &lt; ३८०ms</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Strategic Value Callout -->
+                <div class="mt-4 p-4 bg-sky-50 rounded-xl border border-sky-200">
+                    <h4 class="text-xs font-bold text-brand-900 uppercase">Impact for YASHADA Trainees & State Administration:</h4>
+                    <p class="text-xs text-brand-800 mt-0.5">
+                        Civil service officers can integrate voice AI directly into district grievance portals and IVR hotlines, allowing non-literate and rural citizens to resolve entitlement bottlenecks in their regional dialect without physical paperwork.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 2: MAHA-GR RAG ENGINE ================= -->
+        <section id="content-demo-rag" class="space-y-5 hidden">
+            <div class="glass-card p-6 sm:p-7 rounded-2xl shadow-sm border border-slate-200">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="px-2.5 py-0.5 bg-sky-100 text-sky-800 rounded-full text-xs font-bold">Interactive Demo 2</span>
+                            <span class="text-xs font-medium text-slate-500">Retrieval-Augmented Generation</span>
+                        </div>
+                        <h2 class="text-lg sm:text-xl font-bold text-slate-900 mt-1">Maha-GR Intelligent Administrative Search Engine</h2>
+                        <p class="text-xs sm:text-sm text-slate-600">Instant semantic synthesis over decades of Maharashtra Government Resolutions, circulars, and departmental guidelines.</p>
+                    </div>
+                    <span class="text-xs px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-lg border border-emerald-200 font-semibold flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span> On-Prem Sovereign AI Demo
+                    </span>
+                </div>
+
+                <div class="mt-5">
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2.5">Select Sample Administrative Policy Query:</label>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <button onclick="selectGRQuery('flood')" id="btn-gr-flood" class="p-3.5 text-left rounded-xl border border-sky-600 bg-sky-50 text-sky-900 font-medium text-xs transition-all flex flex-col justify-between">
+                            <span class="font-bold text-sm">Natural Disaster Relief Rates</span>
+                            <span class="text-[11px] text-sky-700 mt-1 font-marathi">अतिवृष्टी व पूरग्रस्तांना मदत आणि पुनर्वसन निकष</span>
+                        </button>
+                        <button onclick="selectGRQuery('procurement')" id="btn-gr-procurement" class="p-3.5 text-left rounded-xl border border-slate-200 bg-white text-slate-700 font-medium text-xs transition-all hover:bg-slate-50 flex flex-col justify-between">
+                            <span class="font-bold text-sm">GeM / IT Procurement Ceilings</span>
+                            <span class="text-[11px] text-slate-500 mt-1 font-marathi">शासकीय ई-खरेदी व निविदा मर्यादा नियम</span>
+                        </button>
+                        <button onclick="selectGRQuery('tribal')" id="btn-gr-tribal" class="p-3.5 text-left rounded-xl border border-slate-200 bg-white text-slate-700 font-medium text-xs transition-all hover:bg-slate-50 flex flex-col justify-between">
+                            <span class="font-bold text-sm">Tribal DBT Verification SOP</span>
+                            <span class="text-[11px] text-slate-500 mt-1 font-marathi">आदिवासी घटक योजना थेट लाभ हस्तांतरण कार्यपद्धती</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mt-5 bg-slate-900 text-slate-100 rounded-xl p-5 shadow-inner border border-slate-800">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+                        <div class="flex items-center gap-2 font-mono text-xs text-slate-400">
+                            <span class="h-2.5 w-2.5 rounded-full bg-emerald-400"></span>
+                            PKC-GR-Indexer // v2.4-OnPremise
+                        </div>
+                        <span class="text-xs font-mono text-emerald-400">Indexed Gazette Corpus Match</span>
+                    </div>
+
+                    <div id="gr-demo-output" class="space-y-4 text-xs sm:text-sm">
+                        <div>
+                            <div class="text-xs text-sky-400 font-mono mb-1">PROMPT QUERY:</div>
+                            <div class="text-sm font-semibold text-white">What are the authorized SDRF assistance compensation rates for agricultural crop damage due to heavy rainfall as per current Maharashtra GRs?</div>
+                        </div>
+
+                        <div class="p-4 bg-slate-800/80 rounded-lg border border-slate-700 leading-relaxed space-y-2.5">
+                            <div class="text-amber-300 font-semibold flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                AI Executive Policy Summary (GR Reference: महसूल व वन विभाग - क्र. संकीर्ण-२०२३/प्र.क्र.८८/म-३)
+                            </div>
+                            <ul class="list-disc pl-5 space-y-1.5 text-slate-200">
+                                <li><strong>जिरायत (Non-irrigated) पिके:</strong> रु. १३,६००/- प्रति हेक्टर (मर्यादा ३ हेक्टरपर्यंत सुधारित).</li>
+                                <li><strong>बागायत (Irrigated) पिके:</strong> रु. २७,०००/- प्रति हेक्टर (मर्यादा ३ हेक्टरपर्यंत सुधारित).</li>
+                                <li><strong>बहुवार्षिक / फळपिके (Perennial Orchards):</strong> रु. ३६,०००/- प्रति हेक्टर.</li>
+                                <li><strong>Panchnama Protocol:</strong> Joint verification by Revenue Inspector, Talathi, and Agriculture Assistant within 72 hours of water recedence with Geo-tagged photo documentation.</li>
+                            </ul>
+                            <div class="pt-2 text-slate-400 text-xs border-t border-slate-700 flex flex-wrap gap-4 font-mono">
+                                <span><strong>Confidence Score:</strong> 98.4%</span>
+                                <span><strong>Source GR Date:</strong> 27 March 2024</span>
+                                <span><strong>Verification:</strong> Authenticated against Maharashtra Gazette Corpus</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 3: GRIEVANCE TRIAGE ================= -->
+        <section id="content-demo-grievance" class="space-y-5 hidden">
+            <div class="glass-card p-6 sm:p-7 rounded-2xl shadow-sm border border-slate-200">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="px-2.5 py-0.5 bg-orange-100 text-orange-800 rounded-full text-xs font-bold">Interactive Demo 3</span>
+                            <span class="text-xs font-medium text-slate-500">Vernacular NLP & Automated Routing</span>
+                        </div>
+                        <h2 class="text-lg sm:text-xl font-bold text-slate-900 mt-1">Marathi Citizen Grievance Triage & Redressal Bot</h2>
+                        <p class="text-xs sm:text-sm text-slate-600">Automated sentiment detection, departmental routing, urgency scoring, and automated citizen dispatch drafting in Marathi.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
+                    <div class="space-y-3">
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-700">Select Incoming Citizen Grievance (गाऱ्हाणे निवडा):</label>
+                        <button onclick="selectGrievance('water')" id="btn-grv-water" class="w-full p-3.5 text-left rounded-xl border border-orange-500 bg-orange-50 font-medium text-xs sm:text-sm transition-all">
+                            <div class="font-bold text-slate-900">१. पिण्याच्या पाण्याची पाईपलाईन फुटल्याबाबत (Urgent Water Supply)</div>
+                            <div class="text-xs text-slate-600 mt-1 font-marathi">"आमच्या गावात गेल्या ४ दिवसांपासून मुख्य पाणी पुरवठा पाईपलाईन फुटली आहे. पिण्याचे पाणी दूषित येत असून मुलांची तब्येत बिघडत आहे..."</div>
+                        </button>
+                        <button onclick="selectGrievance('pension')" id="btn-grv-pension" class="w-full p-3.5 text-left rounded-xl border border-slate-200 bg-white font-medium text-xs sm:text-sm transition-all hover:bg-slate-50">
+                            <div class="font-bold text-slate-900">२. संजय गांधी निराधार योजना पेन्शन अडकल्याबाबत (Social Welfare)</div>
+                            <div class="text-xs text-slate-600 mt-1 font-marathi">"माझ्या आईचे वय ७२ वर्षे आहे. गेल्या ३ महिन्यांपासून बँक खात्यात पेन्शन जमा झालेली नाही. तहसील कार्यालयात हेलपाटे मारावे लागत आहेत..."</div>
+                        </button>
+                        <button onclick="selectGrievance('road')" id="btn-grv-road" class="w-full p-3.5 text-left rounded-xl border border-slate-200 bg-white font-medium text-xs sm:text-sm transition-all hover:bg-slate-50">
+                            <div class="font-bold text-slate-900">३. शेत रस्ता अतिक्रमण व वाद (Revenue / Land Dispute)</div>
+                            <div class="text-xs text-slate-600 mt-1 font-marathi">"गट नं. ४२ मधील पारंपारिक वहिवाटीचा शेत रस्ता शेजारील खातेदाराने अडवला आहे. पेरणीचे दिवस असल्याने ट्रॅक्टर नेता येत नाही. त्वरित पंचनामा व्हावा..."</div>
+                        </button>
+                    </div>
+
+                    <div class="bg-slate-900 text-white p-5 rounded-xl border border-slate-800 space-y-3.5">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                            <span class="text-xs font-mono text-orange-400 font-bold uppercase tracking-wider">AI Classification Engine</span>
+                            <span id="grv-badge-urgency" class="text-xs px-2 py-0.5 rounded font-bold bg-red-500/20 text-red-400 border border-red-500/30">Priority: High (Emergency)</span>
+                        </div>
+
+                        <div id="grv-analysis-content" class="space-y-3 text-xs sm:text-sm">
+                            <div class="grid grid-cols-2 gap-2 bg-slate-800/60 p-3 rounded-lg border border-slate-700/60">
+                                <div>
+                                    <span class="text-slate-400 text-[11px] block">Target Department:</span>
+                                    <span class="font-bold text-sky-300" id="grv-dept">ग्रामीण पाणीपुरवठा विभाग (Zilla Parishad)</span>
+                                </div>
+                                <div>
+                                    <span class="text-slate-400 text-[11px] block">Designated Officer:</span>
+                                    <span class="font-bold text-sky-300" id="grv-officer">Executive Engineer / BDO</span>
+                                </div>
+                                <div>
+                                    <span class="text-slate-400 text-[11px] block">SLA Target Resolution:</span>
+                                    <span class="font-bold text-amber-300" id="grv-sla">२४ ते ४८ तास (Emergency)</span>
+                                </div>
+                                <div>
+                                    <span class="text-slate-400 text-[11px] block">Extracted Entities:</span>
+                                    <span class="font-bold text-slate-200" id="grv-entities">दूषित पाणी, पाईपलाईन, आजारपण</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <span class="text-xs text-slate-400 font-medium block mb-1">Automated Officer Draft Dispatch (मसुदा):</span>
+                                <div class="p-3 bg-slate-950 rounded border border-slate-800 font-marathi text-xs text-slate-300 leading-relaxed" id="grv-draft">
+                                    "प्रति, गट विकास अधिकारी (BDO). संदर्भ: नागरिक तक्रार क्र. MH-PUN-2026-894. आपल्या कार्यक्षेत्रातील मुख्य पाणीपुरवठा वाहिनी तत्काळ दुरुस्त करण्याचे व पर्यायी टँकर व्यवस्था करण्याचे आदेश देण्यात येत आहेत. २४ तासांत पूर्तता अहवाल सादर करावा."
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 4: STRATEGIC ROADMAP & 4 PILLARS ================= -->
+        <section id="content-overview" class="space-y-6 hidden">
+            <div class="executive-gradient rounded-2xl p-6 sm:p-8 text-white shadow-lg border border-slate-700">
+                <div class="max-w-3xl">
+                    <span class="px-3 py-1 bg-sky-500/20 text-sky-300 rounded-full text-xs font-bold uppercase tracking-wider border border-sky-400/30">The Vision</span>
+                    <h2 class="text-xl sm:text-2xl font-bold mt-3 leading-tight">Empowering Civil Administration with Sovereign, Responsible AI</h2>
+                    <p class="mt-2 text-slate-300 text-xs sm:text-sm leading-relaxed">
+                        YASHADA’s excellence in administrative training combined with PKC’s deep-tech translation ecosystem creates Maharashtra’s benchmark model for civil officer AI literacy, localized automation, and empirical governance research.
+                    </p>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
+                    <span class="w-2.5 h-5 bg-brand-600 rounded-full"></span>
+                    Four Strategic Pillars of Collaboration
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="glass-card p-5 rounded-xl border border-slate-200 shadow-sm hover:border-brand-500 transition-all">
+                        <div class="w-10 h-10 bg-brand-50 text-brand-700 rounded-lg flex items-center justify-center font-bold text-base mb-3">01</div>
+                        <h4 class="font-bold text-slate-900 text-sm mb-1.5">Executive Capacity Building</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">Tiered, non-technical executive modules for IAS, Collectors, and HODs on AI decision-making, ethics, data privacy, and procurement.</p>
+                    </div>
+
+                    <div class="glass-card p-5 rounded-xl border border-slate-200 shadow-sm hover:border-brand-500 transition-all">
+                        <div class="w-10 h-10 bg-emerald-50 text-emerald-700 rounded-lg flex items-center justify-center font-bold text-base mb-3">02</div>
+                        <h4 class="font-bold text-slate-900 text-sm mb-1.5">Voice & Vernacular AI</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">Speech-to-Speech & Bhashini integrations enabling rural citizens to interact in spoken Marathi for entitlements & grievances.</p>
+                    </div>
+
+                    <div class="glass-card p-5 rounded-xl border border-slate-200 shadow-sm hover:border-brand-500 transition-all">
+                        <div class="w-10 h-10 bg-orange-50 text-orange-700 rounded-lg flex items-center justify-center font-bold text-base mb-3">03</div>
+                        <h4 class="font-bold text-slate-900 text-sm mb-1.5">Case Studies & Research</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">Co-authoring empirical case studies of digital interventions across Maharashtra districts to establish policy benchmarks.</p>
+                    </div>
+
+                    <div class="glass-card p-5 rounded-xl border border-slate-200 shadow-sm hover:border-brand-500 transition-all">
+                        <div class="w-10 h-10 bg-purple-50 text-purple-700 rounded-lg flex items-center justify-center font-bold text-base mb-3">04</div>
+                        <h4 class="font-bold text-slate-900 text-sm mb-1.5">Gov-Tech Sandbox</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">A dedicated pilot testbed for administrative officers to test rapid Proof-of-Concepts (PoCs) on on-premise secure infrastructure.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 5: MASTERCLASSES & CURRICULUM ================= -->
+        <section id="content-demo-curriculum" class="space-y-5 hidden">
+            <div class="glass-card p-6 sm:p-7 rounded-2xl shadow-sm border border-slate-200">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 rounded-full text-xs font-bold">Joint Capacity Building</span>
+                            <span class="text-xs font-medium text-slate-500">Proposed Course Blueprints</span>
+                        </div>
+                        <h2 class="text-lg sm:text-xl font-bold text-slate-900 mt-1">Tiered AI Masterclasses for Civil Officers</h2>
+                        <p class="text-xs sm:text-sm text-slate-600">Tailored pedagogy: Zero coding requirement, highly immersive, real-world case simulations.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-5">
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="text-xs font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded inline-block mb-2">TIER 1 • 2 DAYS</div>
+                            <h3 class="font-bold text-slate-900 text-sm mb-1">Executive AI for Senior Leadership & IAS</h3>
+                            <p class="text-xs text-slate-500 mb-3">For Secretaries, Collectors, CEOs & Commissioners</p>
+                            <ul class="text-xs text-slate-700 space-y-2">
+                                <li>• <strong>Strategic AI Governance:</strong> Legal liability, sovereign data privacy, and ethical frameworks.</li>
+                                <li>• <strong>Procurement Standards:</strong> Drafting RFPs and evaluating vendor models.</li>
+                                <li>• <strong>Predictive Analytics:</strong> State-level resource & urban planning.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="text-xs font-bold text-orange-700 bg-orange-50 px-2 py-0.5 rounded inline-block mb-2">TIER 2 • 3 DAYS</div>
+                            <h3 class="font-bold text-slate-900 text-sm mb-1">Applied AI for District & Departmental Heads</h3>
+                            <p class="text-xs text-slate-500 mb-3">For Dy Collectors, Tehsildars, BDOs & Joint Directors</p>
+                            <ul class="text-xs text-slate-700 space-y-2">
+                                <li>• <strong>Workflow Automation:</strong> Streamlining file movements, dispatch summaries, and GR search.</li>
+                                <li>• <strong>Geo-AI Scheme Monitoring:</strong> Crop insurance & watershed satellite tracking.</li>
+                                <li>• <strong>Grievance Triage:</strong> Automated Aaple Sarkar pipelines.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded inline-block mb-2">TIER 3 • 1 WEEK</div>
+                            <h3 class="font-bold text-slate-900 text-sm mb-1">Digital Literacy & Productivity for Admin Staff</h3>
+                            <p class="text-xs text-slate-500 mb-3">For Section Officers, Clerks, Talathis & Field Officers</p>
+                            <ul class="text-xs text-slate-700 space-y-2">
+                                <li>• <strong>Vernacular Prompt Engineering:</strong> Drafting Marathi notices & official notes.</li>
+                                <li>• <strong>Report Synthesis:</strong> Data cleaning & automated CSV summary generation.</li>
+                                <li>• <strong>Cyber Hygiene:</strong> Safety protocols for confidential records.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-5 text-slate-500 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="flex items-center gap-2">
+                <span class="font-bold text-slate-700">Pune Knowledge Cluster (PKC)</span>
+                <span>• In Service of Public Governance & Innovation</span>
+            </div>
+            <div>
+                Meeting Demonstration Environment • August 2026
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Execution Logic -->
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('main > section').forEach(sec => sec.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('content-' + tabId).classList.remove('hidden');
+            document.getElementById('tab-' + tabId).classList.add('active');
+            stopSpeech();
+        }
+
+        // ================= AUTHENTIC MARATHI PHONETIC PROSODY =================
+        // Phrased with authentic punctuation pauses, colloquial Devanagari rhythm, and natural inflections
+        const audioScenarios = {
+            ration: {
+                title: "नागरी पुरवठा संवाद: रेशन कार्ड व धान्य वाटप (PDS Scheme)",
+                citizenText: "साहेब, आमच्या कुटुंबातील नवीन लहान बाळाचं नाव रेशन कार्डवर चढवायचं आहे, आणि गेल्या महिन्याचं धान्य बायोमेट्रिक ठसा न उमटल्यामुळे मिळालं नाही. तहसील कार्यालयात न जाता हे कसं करता येईल?",
+                aiResponseText: "नमस्कार. १) बालकाचे नाव जोडण्यासाठी ग्रामपंचायत किंवा सेतू केंद्रावर जन्म प्रमाणपत्र व आधार कार्ड सादर करा. २) बायोमेट्रिक ठसा न आल्यास, शासन निर्णयानुसार रेशन दुकानदारास OTP किंवा 'नॉमिनी' द्वारे धान्य देणे बंधनकारक आहे. तक्रारीसाठी टोल-फ्री क्र. १९६७ वर कॉल करा.",
+                // Natural conversational Marathi intonation:
+                phoneticMarathi: "नमस्कार! पहिले म्हणजे, बाळाचे नाव रेशन कार्डवर चढवण्यासाठी, जवळच्या सेतू केंद्रात जन्म दाखला आणि आधार कार्ड द्या. दुसरे, अंगठ्याचा ठसा आला नाही, तरी नियमानुसार दुकानदाराने ओटीपी किंवा इतर व्यक्तीच्या ठशावर धान्य दिलेच पाहिजे. काही तक्रार असल्यास, एकोणीस सदुसष्ठ या टोल फ्री नंबरवर नक्की फोन करा."
+            },
+            pmkisan: {
+                title: "कृषी विभाग संवाद: नमो शेतकरी महासन्मान निधी (DBT Status)",
+                citizenText: "माझ्या नमो शेतकरी महासन्मान निधीचे गेल्या दोन हप्त्यांचे पैसे खात्यात जमा झाले नाहीत. बँक म्हणते कृषी खात्यात जा आणि कृषी अधिकारी म्हणतात बँकेत जा. नेमकं काय चुकलंय?",
+                aiResponseText: "नमस्कार शेतकरी बंधू. १) ८५% प्रकरणांमध्ये 'NPCI आधार बँक खाते लिंकिंग' किंवा 'e-KYC' अपूर्ण असल्याने हप्ता थांबतो. २) महा-डीबीटी पोर्टलवर आधार स्टेटस तपासा. ३) सीएससी केंद्रावर बायोमेट्रिक ई-केवायसी पूर्ण करा, सर्व प्रलंबित हप्ते जमा होतील.",
+                phoneticMarathi: "नमस्कार शेतकरी बंधू! काळजी करू नका. बहुतांश वेळा बँक खात्याला आधार लिंक नसल्यामुळे किंवा ई केवायसी बाकी असल्यामुळे हप्ता अडकतो. गावातील सीएससी केंद्रात जाऊन फक्त पाच मिनिटांत अंगठा देऊन ई केवायसी पूर्ण करा, मागचे सर्व हप्ते खात्यात लगेच जमा होतील."
+            },
+            caste: {
+                title: "सामाजिक न्याय संवाद: जात वैधता प्रमाणपत्र (Caste Validity)",
+                citizenText: "माझ्या मुलीचे इंजिनिअरिंग ऍडमिशन सुरू आहे. आम्ही जात वैधता (Caste Validity) साठी महिनाभरापूर्वी अर्ज केला होता, पण अजून प्रमाणपत्र मिळाले नाही. ऍडमिशनची मुदत संपत आली आहे.",
+                aiResponseText: "नमस्कार. १) शैक्षणिक प्रवेशासाठी CCVIS पोर्टलवरील अर्जाची पावती तात्पुरत्या प्रवेशासाठी वैध मानण्याचे शासनाचे स्पष्ट आदेश आहेत. २) जिल्हा जात प्रमाणपत्र पडताळणी समिती कार्यालयात टोकन दाखवून तातडीचा दाखला मिळवता येतो.",
+                phoneticMarathi: "नमस्कार! अजिबात काळजी करू नका. शासनाच्या नियमानुसार कॉलेज प्रवेशासाठी अर्जाची ऑनलाईन पोचपावती पूर्णपणे वैध मानली जाते. तसेच जिल्हा जात पडताळणी कार्यालयात टोकन नंबर दाखवून तातडीचा शैक्षणिक दाखला तात्काळ मिळवता येतो."
+            }
+        };
+
+        let currentAudioKey = 'ration';
+        let isSpeaking = false;
+        let timerInterval = null;
+        let waveformInterval = null;
+        let secondsElapsed = 0;
+        let availableVoices = [];
+
+        function populateVoiceList() {
+            if (!('speechSynthesis' in window)) return;
+            availableVoices = window.speechSynthesis.getVoices();
+            const voiceSelect = document.getElementById('system-voice-list');
+            if (!voiceSelect) return;
+
+            voiceSelect.innerHTML = '<option value="">Auto-Detect Voice</option>';
+            availableVoices.forEach((voice, index) => {
+                const opt = document.createElement('option');
+                opt.value = index;
+                const isMarathi = voice.lang.toLowerCase().includes('mr') || voice.name.toLowerCase().includes('marathi') || voice.name.toLowerCase().includes('aarohi') || voice.name.toLowerCase().includes('swara') || voice.name.toLowerCase().includes('manohar');
+                const isIndic = voice.lang.toLowerCase().includes('hi') || voice.lang.toLowerCase().includes('in');
+                
+                if (isMarathi) {
+                    opt.textContent = `★ [मराठी] ${voice.name}`;
+                    opt.selected = true;
+                } else if (isIndic) {
+                    opt.textContent = `[Indic] ${voice.name}`;
+                } else {
+                    opt.textContent = `${voice.name} (${voice.lang})`;
+                }
+                voiceSelect.appendChild(opt);
+            });
+        }
+
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.onvoiceschanged = populateVoiceList;
+            populateVoiceList();
+        }
+
+        function onDialectChange() {
+            const mode = document.getElementById('dialect-mode').value;
+            const label = document.getElementById('engine-status-label');
+            if (mode === 'marathi_pune') {
+                label.innerText = "Dialect: पश्चिम महाराष्ट्र / पुणेरी मराठी बोली • नैसर्गिक उच्चार";
+            } else if (mode === 'marathi_formal') {
+                label.innerText = "Dialect: अधिकृत प्रशासकीय मराठी • शुद्ध प्रमाण भाषा";
+            } else {
+                label.innerText = "Dialect: ग्रामीण लोकसंवाद IVR • संथ व स्पष्ट गती";
+            }
+            stopSpeech();
+        }
+
+        function onVoiceListChange() {
+            stopSpeech();
+        }
+
+        function selectAudioScenario(key) {
+            currentAudioKey = key;
+            ['ration', 'pmkisan', 'caste'].forEach(k => {
+                const btn = document.getElementById('btn-audio-' + k);
+                if (k === key) {
+                    btn.className = "p-3.5 text-left rounded-xl border border-emerald-600 bg-emerald-50/70 text-slate-900 font-medium text-xs transition-all flex flex-col justify-between shadow-sm";
+                } else {
+                    btn.className = "p-3.5 text-left rounded-xl border border-slate-200 bg-white text-slate-700 font-medium text-xs transition-all hover:bg-slate-50 flex flex-col justify-between";
+                }
+            });
+
+            const data = audioScenarios[key];
+            document.getElementById('audio-title').innerText = data.title;
+            document.getElementById('audio-transcript-citizen').innerText = `"${data.citizenText}"`;
+            document.getElementById('audio-response-ai').innerText = `"${data.aiResponseText}"`;
+            stopSpeech();
+        }
+
+        function handlePlayButtonClick() {
+            if (isSpeaking) {
+                stopSpeech();
+            } else {
+                startSpeech();
+            }
+        }
+
+        function startSpeech() {
+            if (!('speechSynthesis' in window)) {
+                alert("Speech Synthesis is not supported in this browser. Please use Chrome or Edge.");
+                return;
+            }
+
+            window.speechSynthesis.cancel();
+
+            const data = audioScenarios[currentAudioKey];
+            const utterance = new SpeechSynthesisUtterance(data.phoneticMarathi);
+            utterance.lang = 'mr-IN';
+
+            // Engineered Prosody Calibration for Natural Marathi Dialect
+            const mode = document.getElementById('dialect-mode').value;
+            if (mode === 'marathi_pune') {
+                utterance.pitch = 1.04;
+                utterance.rate = 0.90; // Natural conversational Puneri speed
+            } else if (mode === 'marathi_formal') {
+                utterance.pitch = 0.90;
+                utterance.rate = 0.86;
+            } else if (mode === 'marathi_rural') {
+                utterance.pitch = 0.98;
+                utterance.rate = 0.80; // Deliberate clear pace for rural outreach
+            }
+
+            const voiceSelect = document.getElementById('system-voice-list');
+            if (voiceSelect && voiceSelect.value !== "" && availableVoices[voiceSelect.value]) {
+                utterance.voice = availableVoices[voiceSelect.value];
+            } else {
+                // Priority: Exact mr-IN -> Marathi Name -> Aarohi/Swara -> Indic Hindi -> en-IN
+                const mrVoice = availableVoices.find(v => v.lang === 'mr-IN' || v.lang.startsWith('mr') || v.name.toLowerCase().includes('marathi') || v.name.toLowerCase().includes('aarohi') || v.name.toLowerCase().includes('swara') || v.name.toLowerCase().includes('manohar'));
+                const indicVoice = availableVoices.find(v => v.lang === 'hi-IN' || v.lang.startsWith('hi') || v.name.toLowerCase().includes('swara') || v.name.toLowerCase().includes('madhur') || v.name.toLowerCase().includes('hemant'));
+                if (mrVoice) utterance.voice = mrVoice;
+                else if (indicVoice) utterance.voice = indicVoice;
+            }
+
+            utterance.onstart = function() {
+                isSpeaking = true;
+                document.getElementById('icon-play').classList.add('hidden');
+                document.getElementById('icon-pause').classList.remove('hidden');
+                document.getElementById('audio-status-badge').innerText = "मराठी व्हॉईस सुरू आहे...";
+                document.getElementById('audio-status-badge').className = "text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 animate-pulse font-marathi";
+
+                for (let i = 1; i <= 8; i++) {
+                    const el = document.getElementById('wb-' + i);
+                    if (el) el.classList.remove('wave-static');
+                }
+                waveformInterval = setInterval(() => {
+                    for (let i = 1; i <= 8; i++) {
+                        const el = document.getElementById('wb-' + i);
+                        if (el) {
+                            const scale = 0.3 + Math.random() * 1.3;
+                            el.style.transform = `scaleY(${scale})`;
+                        }
+                    }
+                }, 120);
+
+                secondsElapsed = 0;
+                clearInterval(timerInterval);
+                timerInterval = setInterval(() => {
+                    secondsElapsed++;
+                    const s = secondsElapsed < 10 ? '0' + secondsElapsed : secondsElapsed;
+                    document.getElementById('playback-timer').innerText = `00:${s} / 00:11`;
+                }, 1000);
+            };
+
+            utterance.onend = function() {
+                stopSpeech();
+            };
+
+            utterance.onerror = function() {
+                stopSpeech();
+            };
+
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function stopSpeech() {
+            isSpeaking = false;
+            document.getElementById('icon-play').classList.remove('hidden');
+            document.getElementById('icon-pause').classList.add('hidden');
+            document.getElementById('audio-status-badge').innerText = "Click Play (मराठी आवाज ऐका)";
+            document.getElementById('audio-status-badge').className = "text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-700/50";
+            
+            clearInterval(timerInterval);
+            clearInterval(waveformInterval);
+            secondsElapsed = 0;
+            document.getElementById('playback-timer').innerText = "00:00 / 00:11";
+
+            for (let i = 1; i <= 8; i++) {
+                const el = document.getElementById('wb-' + i);
+                if (el) {
+                    el.classList.add('wave-static');
+                    el.style.transform = 'scaleY(1)';
+                }
+            }
+
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
+        }
+
+        // GR Logic
+        const grData = {
+            flood: {
+                prompt: "What are the authorized SDRF assistance compensation rates for agricultural crop damage due to heavy rainfall as per current Maharashtra GRs?",
+                ref: "महसूल व वन विभाग - शासन निर्णय क्र. संकीर्ण-२०२३/प्र.क्र.८८/म-३",
+                date: "27 March 2024",
+                points: [
+                    "<strong>जिरायत (Non-irrigated) पिके:</strong> रु. १३,६००/- प्रति हेक्टर (मर्यादा ३ हेक्टरपर्यंत सुधारित).",
+                    "<strong>बागायत (Irrigated) पिके:</strong> रु. २७,०००/- प्रति हेक्टर (मर्यादा ३ हेक्टरपर्यंत सुधारित).",
+                    "<strong>बहुवार्षिक / फळपिके (Perennial Orchards):</strong> रु. ३६,०००/- प्रति हेक्टर.",
+                    "<strong>Panchnama Protocol:</strong> Joint verification by Revenue Inspector, Talathi, and Agriculture Assistant within 72 hours of water recedence with Geo-tagged photo documentation."
+                ]
+            },
+            procurement: {
+                prompt: "What is the financial ceiling and delegation of powers for direct procurement of IT hardware via GeM without tender as per State Finance GR?",
+                ref: "वित्त विभाग - शासन निर्णय क्र. खरेदी-२०२२/प्र.क्र.२२/उद्योग-४",
+                date: "14 November 2023",
+                points: [
+                    "<strong>Direct Purchase through GeM:</strong> Permitted up to रु. ५०,०००/- per transaction through any available seller on GeM.",
+                    "<strong>L1 Comparison (GeM):</strong> Between रु. ५०,०००/- to रु. ५,००,०००/- requires comparison among at least 3 distinct manufacturers.",
+                    "<strong>Mandatory e-Tendering:</strong> Applicable for any IT procurement exceeding रु. ५,००,०००/- across all state departments.",
+                    "<strong>Cloud Hosting Rule:</strong> Mandatory utilization of MeitY-empanelled Cloud Service Providers (CSP) with local server location in India."
+                ]
+            },
+            tribal: {
+                prompt: "What is the standard operating procedure for biometric and Aadhaar-linked DBT reconciliation under Tribal Welfare Sub-Plan schemes?",
+                ref: "आदिवासी विकास विभाग - शासन निर्णय क्र. आविवि-२०२४/प्र.क्र.१०२/का-५",
+                date: "09 January 2025",
+                points: [
+                    "<strong>Aadhaar Payment Bridge (APB):</strong> 100% scholarship and direct subsidies must be routed exclusively via NPCI-mapped APB accounts.",
+                    "<strong>Biometric Failure Fallback:</strong> If iris/fingerprint fails >3 times in remote tribal talukas, offline authorization by Project Officer (PO) with iris log is valid for 30 days.",
+                    "<strong>Bank Seeding Verification:</strong> Monthly reconciliation with Lead District Bank to prevent rejected transaction lapses."
+                ]
+            }
+        };
+
+        function selectGRQuery(type) {
+            ['flood', 'procurement', 'tribal'].forEach(k => {
+                const btn = document.getElementById('btn-gr-' + k);
+                if (btn) btn.className = k === type ? "p-3.5 text-left rounded-xl border border-sky-600 bg-sky-50 text-sky-900 font-medium text-xs transition-all flex flex-col justify-between" : "p-3.5 text-left rounded-xl border border-slate-200 bg-white text-slate-700 font-medium text-xs transition-all hover:bg-slate-50 flex flex-col justify-between";
+            });
+            const d = grData[type];
+            document.getElementById('gr-demo-output').innerHTML = `
+                <div>
+                    <div class="text-xs text-sky-400 font-mono mb-1">PROMPT QUERY:</div>
+                    <div class="text-sm font-semibold text-white">${d.prompt}</div>
+                </div>
+                <div class="p-4 bg-slate-800/80 rounded-lg border border-slate-700 leading-relaxed space-y-2.5">
+                    <div class="text-amber-300 font-semibold flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        AI Executive Policy Summary (GR Reference: ${d.ref})
+                    </div>
+                    <ul class="list-disc pl-5 space-y-1.5 text-slate-200">
+                        ${d.points.map(p => `<li>${p}</li>`).join('')}
+                    </ul>
+                    <div class="pt-2 text-slate-400 text-xs border-t border-slate-700 flex flex-wrap gap-4 font-mono">
+                        <span><strong>Confidence Score:</strong> 98.4%</span>
+                        <span><strong>Source GR Date:</strong> ${d.date}</span>
+                        <span><strong>Verification:</strong> Authenticated against Maharashtra Gazette Corpus</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Grievance Logic
+        const grvData = {
+            water: {
+                urgency: "Priority: High (Emergency Public Health)",
+                urgencyClass: "bg-red-500/20 text-red-400 border border-red-500/30",
+                dept: "ग्रामीण पाणीपुरवठा व स्वच्छता विभाग (Zilla Parishad)",
+                officer: "Executive Engineer / Block Development Officer (BDO)",
+                sla: "२४ ते ४८ तास (Emergency Public Health)",
+                entities: "दूषित पाणी, पाईपलाईन, आजारपण, तातडीची दुरुस्ती",
+                draft: `"प्रति, गट विकास अधिकारी (BDO). संदर्भ: नागरिक तक्रार क्र. MH-PUN-2026-894. आपल्या कार्यक्षेत्रातील मुख्य पाणीपुरवठा वाहिनी तत्काळ दुरुस्त करण्याचे व पर्यायी टँकर व्यवस्था करण्याचे आदेश देण्यात येत आहेत. २४ तासांत पूर्तता अहवाल सादर करावा."`
+            },
+            pension: {
+                urgency: "Priority: Medium (Social Security Welfare)",
+                urgencyClass: "bg-amber-500/20 text-amber-300 border border-amber-500/30",
+                dept: "सामाजिक न्याय व विशेष सहाय्य विभाग (Tehsil Office)",
+                officer: "नायब तहसीलदार (संजय गांधी योजना कक्ष)",
+                sla: "५ ते ७ दिवस (Disbursement Audit)",
+                entities: "संजय गांधी निराधार योजना, वय ७२, पेन्शन विलंब, बँक DBT",
+                draft: `"प्रति, शाखा व्यवस्थापक / नायब तहसीलदार. लाभार्थी श्रीमती... (वय ७२) यांचे आधार DBT मॅपिंग तपासून प्रलंबित ३ महिन्यांचे मानधन त्वरित जमा करण्यात यावे व लाभार्थीस SMS द्वारे सूचित करावे."`
+            },
+            road: {
+                urgency: "Priority: High (Agricultural Season Critical)",
+                urgencyClass: "bg-orange-500/20 text-orange-300 border border-orange-500/30",
+                dept: "महसूल विभाग (Revenue Administration)",
+                officer: "तहसीलदार / मंडळ अधिकारी (Circle Officer)",
+                sla: "३ दिवस (कलम १४३ महाराष्ट्र जमीन महसूल संहिता)",
+                entities: "शेत रस्ता, वहिवाट वाद, गट क्र. ४२, पेरणी हंगाम",
+                draft: `"प्रति, मंडळ अधिकारी व तलाठी. मौजे... येथील गट क्र. ४२ मधील रस्त्याबाबत महाराष्ट्र जमीन महसूल संहिता कलम १४३ अन्वये तात्काळ स्थळपाहणी करून पंचनामा सादर करावा, जेणेकरून शेतीकामात अडथळा येणार नाही."`
+            }
+        };
+
+        function selectGrievance(type) {
+            ['water', 'pension', 'road'].forEach(k => {
+                const btn = document.getElementById('btn-grv-' + k);
+                if (k === type) {
+                    btn.className = "w-full p-3.5 text-left rounded-xl border border-orange-500 bg-orange-50 font-medium text-xs sm:text-sm transition-all";
+                } else {
+                    btn.className = "w-full p-3.5 text-left rounded-xl border border-slate-200 bg-white font-medium text-xs sm:text-sm transition-all hover:bg-slate-50";
+                }
+            });
+
+            const d = grvData[type];
+            const badge = document.getElementById('grv-badge-urgency');
+            badge.innerText = d.urgency;
+            badge.className = "text-xs px-2 py-0.5 rounded font-bold " + d.urgencyClass;
+
+            document.getElementById('grv-dept').innerText = d.dept;
+            document.getElementById('grv-officer').innerText = d.officer;
+            document.getElementById('grv-sla').innerText = d.sla;
+            document.getElementById('grv-entities').innerText = d.entities;
+            document.getElementById('grv-draft').innerText = d.draft;
+        }
+    </script>
+</body>
+</html>
