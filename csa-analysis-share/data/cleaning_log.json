@@ -1,0 +1,19 @@
+{
+  "rows in export": 403853,
+  "unparseable feature lists": 0,
+  "submissions with a feature marked both yes and no (set to unknown)": 3648,
+  "free texts removed as personal (password-like, email, phone, own name)": 864,
+  "free texts removed as meaningless (\"yes\", \"listed\", ...)": 2743,
+  "tags not recognised": {},
+  "submissions without any information (dropped)": 11260,
+  "repeat submissions of the same image (dropped)": 94321,
+  "  of which within 2 seconds (double submits)": 77086,
+  "  of which more than a day later": 10920,
+  "clean votes": 298272,
+  "volunteers": 1231,
+  "images": 2130,
+  "clean votes from the tick-box form (until 16 Feb 2023)": 102828,
+  "clean votes from the yes/no form (from 17 Feb 2023)": 195444,
+  "volunteers found in the registrations file": 1216,
+  "volunteers flagged for review (kept in the data)": 45
+}
